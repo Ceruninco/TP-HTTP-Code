@@ -6,6 +6,7 @@ import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.Scanner;
+import java.util.Vector;
 
 /**
  * Example program from Chapter 1 Programming Spiders, Bots and Aggregators in
@@ -61,6 +62,7 @@ public class WebServer {
                 System.out.println("GET requested");
                 break;
               case "POST" :
+                handlePOST(req,out,in);
                 System.out.println("POST requested");
                 break;
               case "HEAD" :
@@ -79,16 +81,6 @@ public class WebServer {
           }
 
         }
-
-    /*    // Send the response
-        // Send the headers
-        out.println("HTTP/1.0 200 OK");
-        out.println("Content-Type: text/html");
-        out.println("Server: Bot");
-        // this blank line signals the end of the headers
-        out.println("");
-        // Send the HTML page
-        out.println("<H1>Welcome to the Ultra Mini-WebServer</H2>");*/
         out.flush();
 
         remote.close();
@@ -126,6 +118,50 @@ public class WebServer {
     } catch (FileNotFoundException e) {
       e.printStackTrace();
     }
+    return "";
+  }
+  public String handlePOST(String[] req, PrintWriter out,BufferedReader in){
+
+    String page = "";
+
+
+    if(req[1].equals("/")){
+      return "";
+    }else{
+      page = req[1];
+    }
+    Vector<String> content = new Vector<>();
+    String current = "";
+
+    try {
+      File reader = new File( System.getProperty("user.dir") + "/web/html"+page);
+      if (reader.createNewFile()) {
+        System.out.println("File created: " + reader.getName());
+      } else {
+        System.out.println("File already exists.");
+      }
+      while (!(current=in.readLine()).equals("")){
+        content.add(current);
+        System.out.println(current);
+      }
+      System.out.println("number of lines of file" +content.size());
+      FileWriter historyFileWriter = new FileWriter(reader, true);
+      while (!(current=in.readLine()).equals("")&&current!=null){
+        historyFileWriter.write(current+"\n");
+      }
+      historyFileWriter.close();
+
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+
+
+      out.println("HTTP/1.0 200 OK");
+      out.println("Content-Type: text/html");
+      out.println("Server: Bot");
+      // this blank line signals the end of the headers
+
+      out.println("");
     return "";
   }
   /**
