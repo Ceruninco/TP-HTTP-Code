@@ -26,10 +26,11 @@ public class WebPing {
         PrintStream socOut = new PrintStream(sock.getOutputStream());
         BufferedReader socIn = new BufferedReader(
                 new InputStreamReader(sock.getInputStream()));
-        socOut.println("POST /test.txt HTTP/1.1");
+        socOut.println("PUT /test.txt HTTP/1.1");
+        socOut.println("header infos");
         socOut.println("");
-        socOut.println("");
-        socOut.println("hello there, this is most irregular");
+        socOut.println("hello there");
+        socOut.println("I have a really bad feeling about this");
         socOut.println("");
         String currentLine = "";
 
