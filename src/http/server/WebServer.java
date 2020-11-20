@@ -3,10 +3,12 @@
 package http.server;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.Scanner;
 
 /**
  * Example program from Chapter 1 Programming Spiders, Bots and Aggregators in
@@ -63,7 +65,14 @@ public class WebServer {
         // this blank line signals the end of the headers
         out.println("");
         // Send the HTML page
-        out.println("<H1>Welcome to the Ultra Mini-WebServer</H2>");
+        //out.println("<H1>Welcome to the Ultra Mini-WebServer</H2>");
+        File html = new File( System.getProperty("user.dir") + "/web/html/page1.html");
+        Scanner myReader = new Scanner(html);
+        while (myReader.hasNextLine()) {
+          String data = myReader.nextLine();
+          out.println(data);
+        }
+        myReader.close();
         out.flush();
         remote.close();
       } catch (Exception e) {
