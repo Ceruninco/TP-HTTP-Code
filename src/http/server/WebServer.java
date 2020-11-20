@@ -2,10 +2,7 @@
 
 package http.server;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.InputStreamReader;
-import java.io.PrintWriter;
+import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.Scanner;
@@ -54,10 +51,36 @@ public class WebServer {
         // blank line signals the end of the client HTTP
         // headers.
         String str = ".";
-        while (str != null && !str.equals(""))
+        while (str != null && !str.equals("")){
           str = in.readLine();
+          if(str != null && !str.equals("")){
+            String[] req = str.split(" ");
+            switch (req[0]){
+              case "GET" :
+                handleGET(req,out);
+                System.out.println("GET requested");
+                break;
+              case "POST" :
+                System.out.println("POST requested");
+                break;
+              case "HEAD" :
+                System.out.println("HEAD requested");
+                break;
+              case "DELETE" :
+                System.out.println("DELETE requested");
+                break;
+              case "PUT" :
+                System.out.println("PUT requested");
+                break;
+            }
+            System.out.println(str);
+          }else{
+            break;
+          }
 
-        // Send the response
+        }
+
+    /*    // Send the response
         // Send the headers
         out.println("HTTP/1.0 200 OK");
         out.println("Content-Type: text/html");
@@ -65,22 +88,46 @@ public class WebServer {
         // this blank line signals the end of the headers
         out.println("");
         // Send the HTML page
-        //out.println("<H1>Welcome to the Ultra Mini-WebServer</H2>");
-        File html = new File( System.getProperty("user.dir") + "/web/html/page1.html");
-        Scanner myReader = new Scanner(html);
-        while (myReader.hasNextLine()) {
-          String data = myReader.nextLine();
-          out.println(data);
-        }
-        myReader.close();
+        out.println("<H1>Welcome to the Ultra Mini-WebServer</H2>");*/
         out.flush();
+
         remote.close();
       } catch (Exception e) {
         System.out.println("Error: " + e);
       }
     }
   }
+  public String handleGET(String[] req, PrintWriter out){
 
+    String page = "";
+  if(req[1].equals("/")){
+
+    page = "/page1.html";
+  }else{
+    page = req[1];
+  }
+    File html = new File( System.getProperty("user.dir") + "/web/html"+page);
+    Scanner myReader = null;
+    try {
+      myReader = new Scanner(html);
+      out.println("HTTP/1.0 200 OK");
+      out.println("Content-Type: text/html");
+      out.println("Server: Bot");
+      // this blank line signals the end of the headers
+      out.println("");
+
+      while (myReader.hasNextLine()) {
+        String data = myReader.nextLine();
+        out.println(data);
+      }
+      out.println("");
+      myReader.close();
+
+    } catch (FileNotFoundException e) {
+      e.printStackTrace();
+    }
+    return "";
+  }
   /**
    * Start the application.
    * 
