@@ -46,12 +46,35 @@ public class WebServer {
         BufferedReader in = new BufferedReader(new InputStreamReader(
             remote.getInputStream()));
         PrintWriter out = new PrintWriter(remote.getOutputStream());
+        Request req = Request.parse(remote.getInputStream());
+        if (req != null){
+          switch (req.method){
+            case "GET" :
+              System.out.println("GET requested");
+              handleGET(req,out);
+              break;
+            case "POST" :
+              System.out.println("POST requested");
+              handlePOST(req,out);
 
+              break;
+            case "HEAD" :
+              System.out.println("HEAD requested");
+              break;
+            case "DELETE" :
+              System.out.println("DELETE requested");
+              break;
+            case "PUT" :
+              System.out.println("PUT requested");
+              //handlePUT(req,out,in);
+              break;
+          }
+        }
         // read the data sent. We basically ignore it,
         // stop reading once a blank line is hit. This
         // blank line signals the end of the client HTTP
         // headers.
-        String str = ".";
+        /*String str = ".";
 
         str = in.readLine();
         System.out.println("**** " + str);
@@ -78,7 +101,7 @@ public class WebServer {
                 handlePUT(req,out,in);
                 break;
             }
-        }
+        }*/
 
         out.flush();
         remote.close();
@@ -88,6 +111,89 @@ public class WebServer {
       }
     }
   }
+  public String handleGET(Request req, PrintWriter out){
+    String page = "";
+    if(req.uri.equals("/")){
+      page = "/page1.html";
+    }else{
+      page = req.uri;
+    }
+    File html = new File( System.getProperty("user.dir") + "/web/html"+page);
+    Scanner myReader = null;
+    try {
+      myReader = new Scanner(html);
+      out.println("HTTP/1.1 200 OK");
+      out.println("Content-Type: text/html");
+      out.println("Server: Bot");
+      // this blank line signals the end of the headers
+      out.println("\r\n");
+
+      while (myReader.hasNextLine()) {
+        String data = myReader.nextLine();
+        out.println(data);
+      }
+      out.println("\r\n");
+      myReader.close();
+
+    } catch (FileNotFoundException e) {
+      e.printStackTrace();
+      out.println("HTTP/1.1 404 Not Found");
+      out.println("Content-Type: text/html");
+      out.println("Server: Bot");
+      // this blank line signals the end of the headers
+      out.println("");
+      out.println("<h1>Status code 404 : Not Found</h1>");
+    }
+    return "";
+  }
+
+  public String handlePOST(Request req, PrintWriter out){
+
+    String page = "";
+    if(req.uri.equals("/")){
+      out.println("HTTP/1.1 404 Not Found");
+      out.println("Content-Type: text/html");
+      out.println("Server: Bot");
+      // this blank line signals the end of the headers
+      out.println("");
+      out.println("<h1>Status code 404 : Not Found</h1>");
+      return "";
+    }else{
+      page = req.uri;
+    }
+
+    try {
+      File reader = new File( System.getProperty("user.dir") + "/web/html"+page);
+      if (reader.createNewFile()) {
+        System.out.println("File created: " + reader.getName());
+      } else {
+        System.out.println("File already exists.");
+      }
+
+      FileWriter historyFileWriter = new FileWriter(reader, true);
+      System.out.println("number of chars of body " + req.body.length());
+      /*for (int i=0; i<content.size(); ++i){
+        historyFileWriter.write(content.get(i) + "\n");
+      }*/
+      System.err.println(req.body);
+      historyFileWriter.write(req.body + "\n");
+
+      historyFileWriter.close();
+      out.println("HTTP/1.0 200 OK");
+      out.println("Content-Type: text/html");
+      out.println("Server: Bot");
+      // this blank line signals the end of the headers
+      out.println("\r\n");
+
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+
+
+    return "";
+  }
+
+
   public String handleGET(String[] req, PrintWriter out,BufferedReader in){
     //Read the whole request
     String current = "";
@@ -156,9 +262,7 @@ public class WebServer {
       try {
         current=in.readLine();
         System.out.println("current " + current);
-        if (current.equals("") || current==null) {
-          break;
-        }
+        if (current.equals("") || current==null) {break;}
       } catch (IOException e) {
         e.printStackTrace();
       }

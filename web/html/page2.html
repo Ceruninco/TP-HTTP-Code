@@ -25,23 +25,6 @@
             xhttp.open("POST", "test.txt", true);
             xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
             xhttp.send(text);
-            /*$.ajax({
-                url: './test.txt',
-                method: 'POST',
-                data: {
-                    text: text,
-                },
-                dataType: 'text'
-            })
-            .done( function (response) { // Fonction appelée en cas d'appel AJAX réussi
-                console.log('Response',response); // LOG dans Console Javascript
-            })
-            .fail( function (error) { // Fonction appelée en cas d'erreur lors de l'appel AJAX
-                console.log('Error',error); // LOG dans Console Javascript
-                alert("Erreur lors de l'appel AJAX");
-            })
-            .always( function () { // Fonction toujours appelée
-            });*/
         }
     </script>
 </body>
