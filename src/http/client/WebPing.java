@@ -24,14 +24,16 @@ public class WebPing {
       Socket sock = new Socket(httpServerHost, httpServerPort);
       addr = sock.getInetAddress();
       System.out.println("Connected to " + addr);
-      PrintStream socOut = new PrintStream(sock.getOutputStream());
-      BufferedReader socIn = new BufferedReader(
-              new InputStreamReader(sock.getInputStream()));
-      socOut.println("POST /test.txt HTTP/1.1");
-      socOut.println("");
-      socOut.println("hello there, this is most irregular");
-      socOut.println("");
-      String currentLine = "";
+        PrintStream socOut = new PrintStream(sock.getOutputStream());
+        BufferedReader socIn = new BufferedReader(
+                new InputStreamReader(sock.getInputStream()));
+        socOut.println("PUT /test.txt HTTP/1.1");
+        socOut.println("header infos");
+        socOut.println("");
+        socOut.println("hello there");
+        socOut.println("I have a really bad feeling about this");
+        socOut.println("");
+        String currentLine = "";
 
       while((currentLine=socIn.readLine())!=null){
           System.out.println(currentLine);

@@ -59,12 +59,13 @@ public class WebServer {
             String[] req = str.split(" ");
             switch (req[0]){
               case "GET" :
-                handleGET(req,out,in);
                 System.out.println("GET requested");
+                handleGET(req,out,in);
                 break;
               case "POST" :
-                handlePOST(req,out,in);
                 System.out.println("POST requested");
+                handlePOST(req,out,in);
+
                 break;
               case "HEAD" :
                 System.out.println("HEAD requested");
@@ -74,6 +75,7 @@ public class WebServer {
                 break;
               case "PUT" :
                 System.out.println("PUT requested");
+                handlePUT(req,out,in);
                 break;
             }
         }
@@ -178,7 +180,11 @@ public class WebServer {
       } else {
         System.out.println("File already exists.");
       }
-
+      /*while (!(current=in.readLine()).equals("")){
+        content.add(current);
+        System.out.println(current);
+      }
+      System.out.println("number of lines of header : " +content.size());*/
       FileWriter historyFileWriter = new FileWriter(reader, true);
       System.out.println("number of lines of file " +content.size());
       for (int i=0; i<content.size(); ++i){
@@ -197,6 +203,51 @@ public class WebServer {
     }
 
 
+    return "";
+  }
+
+  public String handlePUT(String[] req, PrintWriter out,BufferedReader in){
+
+    String page = "";
+
+
+    if(req[1].equals("/")){
+      return "";
+    }else{
+      page = req[1];
+    }
+    Vector<String> content = new Vector<>();
+    String current = "";
+
+    try {
+      File reader = new File( System.getProperty("user.dir") + "/web/html"+page);
+      if (reader.createNewFile()) {
+        System.out.println("File created: " + reader.getName());
+      } else {
+        System.out.println("File already exists.");
+      }
+      while (!(current=in.readLine()).equals("")){
+        content.add(current);
+        System.out.println(current);
+      }
+      System.out.println("number of lines of header : " +content.size());
+      FileWriter historyFileWriter = new FileWriter(reader, false);
+      while (!(current=in.readLine()).equals("")&&current!=null){
+        historyFileWriter.write(current+"\n");
+      }
+      historyFileWriter.close();
+
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+
+
+    out.println("HTTP/1.0 200 OK");
+    out.println("Content-Type: text/html");
+    out.println("Server: Bot");
+    // this blank line signals the end of the headers
+
+    out.println("");
     return "";
   }
   /**
