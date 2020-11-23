@@ -20,21 +20,21 @@ public class WebPing {
       httpServerPort = Integer.parseInt(args[1]);
 
     try {
-      InetAddress addr;      Socket sock = new Socket(httpServerHost, httpServerPort);
+      InetAddress addr;
+      Socket sock = new Socket(httpServerHost, httpServerPort);
       addr = sock.getInetAddress();
       System.out.println("Connected to " + addr);
-        PrintStream socOut = new PrintStream(sock.getOutputStream());
-        BufferedReader socIn = new BufferedReader(
-                new InputStreamReader(sock.getInputStream()));
-        socOut.println("POST /test.txt HTTP/1.1");
-        socOut.println("");
-        socOut.println("");
-        socOut.println("hello there, this is most irregular");
-        socOut.println("");
-        String currentLine = "";
+      PrintStream socOut = new PrintStream(sock.getOutputStream());
+      BufferedReader socIn = new BufferedReader(
+              new InputStreamReader(sock.getInputStream()));
+      socOut.println("POST /test.txt HTTP/1.1");
+      socOut.println("");
+      socOut.println("hello there, this is most irregular");
+      socOut.println("");
+      String currentLine = "";
 
       while((currentLine=socIn.readLine())!=null){
-        System.out.println(currentLine);
+          System.out.println(currentLine);
       }
 
       sock.close();

@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <title>Contact</title>
 </head>
 <body>
@@ -9,5 +10,39 @@
     <p>Address : 20 Avenue Albert Einstein</p>
     <p>Tel : 06 00 05 05 06</p>
     <p>Mail : prenom.nom@insa-lyon.fr</p>
+    <p>Description: </p>
+    <textarea id="descriptionArea"  placeholder="Description"></textarea>
+    <br/>
+    <button onclick="post()">POST</button>
+    <button onclick="put()">PUT</button>
+
+    <script>
+
+        function post(){
+            let text=document.getElementById("descriptionArea").value;
+            //console.log(text);
+            let xhttp = new XMLHttpRequest();
+            xhttp.open("POST", "test.txt", true);
+            xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+            xhttp.send(text);
+            /*$.ajax({
+                url: './test.txt',
+                method: 'POST',
+                data: {
+                    text: text,
+                },
+                dataType: 'text'
+            })
+            .done( function (response) { // Fonction appelée en cas d'appel AJAX réussi
+                console.log('Response',response); // LOG dans Console Javascript
+            })
+            .fail( function (error) { // Fonction appelée en cas d'erreur lors de l'appel AJAX
+                console.log('Error',error); // LOG dans Console Javascript
+                alert("Erreur lors de l'appel AJAX");
+            })
+            .always( function () { // Fonction toujours appelée
+            });*/
+        }
+    </script>
 </body>
 </html>
