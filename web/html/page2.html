@@ -15,6 +15,8 @@
     <br/>
     <button onclick="post()">POST</button>
     <button onclick="put()">PUT</button>
+    <br/>
+    <button onclick="head()">HEAD</button>
 
     <script>
 
@@ -25,6 +27,22 @@
             xhttp.open("POST", "test.txt", true);
             xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
             xhttp.send(text);
+        }
+
+        function put(){
+            let text=document.getElementById("descriptionArea").value;
+            //console.log(text);
+            let xhttp = new XMLHttpRequest();
+            xhttp.open("PUT", "test.txt", true);
+            xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+            xhttp.send(text);
+        }
+
+        function head(){
+            let xhttp = new XMLHttpRequest();
+            xhttp.open("HEAD", "/page2.html", true);
+            xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+            xhttp.send();
         }
     </script>
 </body>
