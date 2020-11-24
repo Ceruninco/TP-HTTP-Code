@@ -17,6 +17,7 @@
     <button onclick="put()">PUT</button>
     <br/>
     <button onclick="handleHead()">HEAD</button>
+    <button onclick="handleDelete()">DELETE</button>
 
     <script>
 
@@ -40,7 +41,13 @@
 
         function handleHead(){
             let xhttp = new XMLHttpRequest();
-            xhttp.open("HEAD", "/page2.html");
+            xhttp.open("HEAD", "/page2.html", true);
+            xhttp.send();
+        }
+
+        function handleDelete(){
+            let xhttp = new XMLHttpRequest();
+            xhttp.open("DELETE", "/test.txt", true);
             xhttp.send();
         }
     </script>
