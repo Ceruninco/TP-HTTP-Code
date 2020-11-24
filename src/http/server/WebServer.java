@@ -5,6 +5,7 @@ package http.server;
 import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.nio.file.Files;
 import java.util.Scanner;
 import java.util.Vector;
 
@@ -51,7 +52,7 @@ public class WebServer {
           switch (req.method){
             case "GET" :
               System.out.println("GET requested");
-              handleGET(req,out);
+              handleGET(req,remote.getOutputStream());
               break;
             case "POST" :
               System.out.println("POST requested");
@@ -80,38 +81,75 @@ public class WebServer {
       }
     }
   }
-  public String handleGET(Request req, PrintWriter out){
+  public String handleGET(Request req, OutputStream out){
     String page = "";
     if(req.uri.equals("/")){
       page = "/page1.html";
     }else{
       page = req.uri;
     }
-    File html = new File( System.getProperty("user.dir") + "/web/html"+page);
-    Scanner myReader = null;
-    try {
-      myReader = new Scanner(html);
-      out.println("HTTP/1.1 200 OK");
-      out.println("Content-Type: text/html");
-      out.println("Server: Bot");
-      // this blank line signals the end of the headers
-      out.println("\r\n");
 
-      while (myReader.hasNextLine()) {
-        String data = myReader.nextLine();
-        out.println(data);
+    PrintWriter writer = new PrintWriter(out);
+    try {
+      File file = new File( System.getProperty("user.dir") + "/web/html"+page);
+      String fileType = null;
+      fileType =  Files.probeContentType(file.toPath());
+      String extension = "";
+      if(fileType==null){
+        extension = page.substring(page.lastIndexOf(".") +1);
+        if(extension.equals("js")){
+          fileType = "text/javascript";
+        }
       }
-      out.println("\r\n");
+
+      System.out.println(fileType);
+      String category = fileType.split("/")[0];
+      Scanner myReader = null;
+
+
+      writer.println("HTTP/1.1 200 OK");
+      writer.println("Content-Type: "+fileType);
+  //    writer.println("Content-Length: "+file.length());
+   //   System.out.println(file.length());
+      System.out.println("type : "+fileType);
+      writer.println("Server: Bot");
+      // this blank line signals the end of the headers
+      writer.println("");
+
+      if(fileType.equals("text/html") || fileType.equals("text/javascript")){
+        System.out.println("sending html");
+        myReader = new Scanner(file);
+        while (myReader.hasNextLine()) {
+          String data = myReader.nextLine();
+          System.out.println(data);
+          writer.println(data);
+        }
+        writer.println("");
+      }else{
+        writer.flush();
+        System.out.println("sending image to server");
+        Files.copy(file.toPath(),out);
+   //     out.flush();
+        System.out.println("image sent");
+    //    out.close();
+      }
+
+      writer.println("");
+      writer.flush();
+      writer.close();
       myReader.close();
 
+    System.out.println("end of transmission");
     } catch (FileNotFoundException e) {
       e.printStackTrace();
-      out.println("HTTP/1.1 404 Not Found");
-      out.println("Content-Type: text/html");
-      out.println("Server: Bot");
+      writer.println("HTTP/1.1 404 Not Found");
+      writer.println("Content-Type: text/html");
+      writer.println("Server: Bot");
       // this blank line signals the end of the headers
-      out.println("");
-      out.println("<h1>Status code 404 : Not Found</h1>");
+      writer.println("");
+      writer.println("<h1>Status code 404 : Not Found</h1>");
+    } catch (IOException e) {
+      e.printStackTrace();
     }
     return "";
   }
@@ -141,18 +179,16 @@ public class WebServer {
 
       FileWriter historyFileWriter = new FileWriter(reader, true);
       System.out.println("number of chars of body " + req.body.length());
-      /*for (int i=0; i<content.size(); ++i){
-        historyFileWriter.write(content.get(i) + "\n");
-      }*/
+
       System.err.println(req.body);
-      historyFileWriter.write(req.body + "\n");
+      historyFileWriter.write(req.body + '\n');
 
       historyFileWriter.close();
       out.println("HTTP/1.0 200 OK");
       out.println("Content-Type: text/html");
       out.println("Server: Bot");
       // this blank line signals the end of the headers
-      out.println("\r\n");
+      out.print("\r\n");
 
     } catch (IOException e) {
       e.printStackTrace();

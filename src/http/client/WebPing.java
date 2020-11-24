@@ -27,18 +27,18 @@ public class WebPing {
         PrintStream socOut = new PrintStream(sock.getOutputStream());
         BufferedReader socIn = new BufferedReader(
                 new InputStreamReader(sock.getInputStream()));
-        socOut.println("PUT /test.txt HTTP/1.1");
-        socOut.println("header infos");
+        socOut.println("GET /page1.html HTTP/1.1");
+  //      socOut.println("header infos");
         socOut.println("");
-        socOut.println("hello there");
-        socOut.println("I have a really bad feeling about this");
-        socOut.println("");
+   //     socOut.println("hello there");
+   //     socOut.println("I have a really bad feeling about this");
+    //    socOut.println("");
         String currentLine = "";
 
       while((currentLine=socIn.readLine())!=null){
           System.out.println(currentLine);
       }
-
+System.out.println("connection closed");
       sock.close();
     } catch (java.io.IOException e) {
       System.out.println("Can't connect to " + httpServerHost + ":" + httpServerPort);
