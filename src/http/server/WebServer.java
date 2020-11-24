@@ -71,6 +71,9 @@ public class WebServer {
               System.out.println("PUT requested");
               handlePUT(req,out);
               break;
+            default :
+              handleUnrecognized(out);
+              break;
           }
         }
         out.flush();
@@ -81,6 +84,16 @@ public class WebServer {
       }
     }
   }
+
+  public String handleUnrecognized(PrintWriter out){
+      out.println("HTTP/1.0 501 NOT IMPLEMENTED");
+      out.println("Content-Type: text/html");
+      out.println("Server: Bot");
+      // this blank line signals the end of the headers
+      out.println("");
+    return "";
+  }
+
   public String handleGET(Request req, OutputStream out){
     String page = "";
     if(req.uri.equals("/")){
@@ -106,15 +119,22 @@ public class WebServer {
       String category = fileType.split("/")[0];
       Scanner myReader = null;
 
+      if (fileType.equals(null)) {
+        writer.println("HTTP/1.1 415 Unsupported Media Type");
+        writer.println("Server: Bot");
+        // this blank line signals the end of the headers
+        writer.println("");
+      }else{
+        writer.println("HTTP/1.1 200 OK");
+        writer.println("Content-Type: "+fileType);
+        //    writer.println("Content-Length: "+file.length());
+        //   System.out.println(file.length());
+        System.out.println("type : "+fileType);
+        writer.println("Server: Bot");
+        // this blank line signals the end of the headers
+        writer.println("");
+      }
 
-      writer.println("HTTP/1.1 200 OK");
-      writer.println("Content-Type: "+fileType);
-  //    writer.println("Content-Length: "+file.length());
-   //   System.out.println(file.length());
-      System.out.println("type : "+fileType);
-      writer.println("Server: Bot");
-      // this blank line signals the end of the headers
-      writer.println("");
 
       if(fileType.equals("text/html") || fileType.equals("text/javascript")){
         System.out.println("sending html");
@@ -125,7 +145,7 @@ public class WebServer {
           writer.println(data);
         }
         writer.println("");
-      }else{
+      }else if(!fileType.equals(null)){
         writer.flush();
         System.out.println("sending image to server");
         Files.copy(file.toPath(),out);

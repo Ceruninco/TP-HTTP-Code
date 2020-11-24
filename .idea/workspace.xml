@@ -19,11 +19,11 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0df1b35c-287b-4b02-b014-1a81184e9352" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/web/html/Adder.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/web/html/page2.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+    <list default="true" id="b6a6ec00-3120-4128-b5fa-d5aa40c44eb6" name="Default Changelist" comment="handle images and videos and javascript">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/TP-HTTP-Code/http/client/WebPing.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/TP-HTTP-Code/http/client/WebPing.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/TP-HTTP-Code/http/server/WebServer.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/TP-HTTP-Code/http/server/WebServer.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/http/server/WebServer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/http/server/WebServer.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -48,6 +48,7 @@
     </option>
   </component>
   <component name="ProjectId" id="1kY4VMSXiXHYIiK2z7XQOMnydWM" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -59,7 +60,24 @@
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
   </component>
-  <component name="RunManager" selected="Application.WebPing">
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\TP-HTTP-Code\web\html" />
+      <recent name="D:\TP-HTTP-Code\web\jpg" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Application.WebServer">
+    <configuration default="true" type="ArquillianJUnit" factoryName="" nameIsGenerated="true">
+      <option name="arquillianRunConfiguration">
+        <value>
+          <option name="containerStateName" value="" />
+        </value>
+      </option>
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="WebPing" type="Application" factoryName="Application" singleton="false" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="http.client.WebPing" />
       <module name="TP-HTTP-Code" />
@@ -74,7 +92,7 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="WebServer" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+    <configuration name="WebServer" type="Application" factoryName="Application" singleton="false" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="http.server.WebServer" />
       <module name="TP-HTTP-Code" />
       <extension name="coverage">
@@ -83,17 +101,6 @@
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration default="true" type="ArquillianJUnit" factoryName="" nameIsGenerated="true">
-      <option name="arquillianRunConfiguration">
-        <value>
-          <option name="containerStateName" value="" />
-        </value>
-      </option>
-      <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -112,13 +119,42 @@
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="0df1b35c-287b-4b02-b014-1a81184e9352" name="Default Changelist" comment="" />
+      <changelist id="b6a6ec00-3120-4128-b5fa-d5aa40c44eb6" name="Default Changelist" comment="handle HTTP POST &amp; PUT" />
       <created>1605864220004</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1605864220004</updated>
       <workItem from="1605864221154" duration="2347000" />
     </task>
+    <task id="LOCAL-00001" summary="handle HTTP POST">
+      <created>1605871192897</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1605871192897</updated>
+    </task>
+    <task id="LOCAL-00002" summary="handle HTTP POST &amp; PUT">
+      <created>1605876580850</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1605876580850</updated>
+    </task>
+    <task id="LOCAL-00003" summary="handle every HTTP request">
+      <created>1606204948955</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1606204948955</updated>
+    </task>
+    <task id="LOCAL-00004" summary="handle HTTP POST &amp; PUT">
+      <created>1606210818417</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1606210818417</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -134,28 +170,117 @@
         </entry>
       </map>
     </option>
+    <option name="oldMeFiltersMigrated" value="true" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="handle HTTP GET" />
+    <MESSAGE value="handle HTTP POST" />
+    <MESSAGE value="handle every HTTP request" />
+    <MESSAGE value="handle HTTP POST &amp; PUT" />
+    <option name="LAST_COMMIT_MESSAGE" value="handle HTTP POST &amp; PUT" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="414" y="195" width="1092" height="738" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1605864305819">
-      <screen x="0" y="0" width="1920" height="1080" />
+    <state x="331" y="149" width="1092" height="738" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1606209877093">
+      <screen x="0" y="0" width="1536" height="824" />
     </state>
+    <state x="331" y="149" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1536.824@0.0.1536.824" timestamp="1606209877093" />
     <state x="414" y="195" width="1092" height="738" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1920.1080@0.0.1920.1080" timestamp="1605864305819" />
-    <state width="1877" height="295" key="GridCell.Tab.0.bottom" timestamp="1605866850389">
-      <screen x="0" y="0" width="1920" height="1080" />
+    <state x="374" y="0" key="CommitChangelistDialog2" timestamp="1606210954944">
+      <screen x="0" y="0" width="1536" height="824" />
     </state>
+    <state x="374" y="0" key="CommitChangelistDialog2/0.0.1536.824@0.0.1536.824" timestamp="1606210954944" />
+    <state width="1493" height="246" key="GridCell.Tab.0.bottom" timestamp="1606210690791">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state width="1493" height="246" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1606210690791" />
     <state width="1877" height="295" key="GridCell.Tab.0.bottom/0.0.1920.1080@0.0.1920.1080" timestamp="1605866850389" />
-    <state width="1877" height="295" key="GridCell.Tab.0.center" timestamp="1605866850389">
-      <screen x="0" y="0" width="1920" height="1080" />
+    <state width="1493" height="246" key="GridCell.Tab.0.center" timestamp="1606210690791">
+      <screen x="0" y="0" width="1536" height="824" />
     </state>
+    <state width="1493" height="246" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1606210690790" />
     <state width="1877" height="295" key="GridCell.Tab.0.center/0.0.1920.1080@0.0.1920.1080" timestamp="1605866850389" />
-    <state width="1877" height="295" key="GridCell.Tab.0.left" timestamp="1605866850389">
-      <screen x="0" y="0" width="1920" height="1080" />
+    <state width="1493" height="246" key="GridCell.Tab.0.left" timestamp="1606210690790">
+      <screen x="0" y="0" width="1536" height="824" />
     </state>
+    <state width="1493" height="246" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1606210690790" />
     <state width="1877" height="295" key="GridCell.Tab.0.left/0.0.1920.1080@0.0.1920.1080" timestamp="1605866850389" />
-    <state width="1877" height="295" key="GridCell.Tab.0.right" timestamp="1605866850389">
-      <screen x="0" y="0" width="1920" height="1080" />
+    <state width="1493" height="246" key="GridCell.Tab.0.right" timestamp="1606210690791">
+      <screen x="0" y="0" width="1536" height="824" />
     </state>
+    <state width="1493" height="246" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1606210690791" />
     <state width="1877" height="295" key="GridCell.Tab.0.right/0.0.1920.1080@0.0.1920.1080" timestamp="1605866850389" />
+    <state x="896" y="221" width="640" height="603" key="GridCell.Tab.1.bottom" timestamp="1606210030276">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="896" y="221" width="640" height="603" key="GridCell.Tab.1.bottom/0.0.1536.824@0.0.1536.824" timestamp="1606210030276" />
+    <state x="896" y="221" width="640" height="603" key="GridCell.Tab.1.center" timestamp="1606210030275">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="896" y="221" width="640" height="603" key="GridCell.Tab.1.center/0.0.1536.824@0.0.1536.824" timestamp="1606210030275" />
+    <state x="896" y="221" width="640" height="603" key="GridCell.Tab.1.left" timestamp="1606210030283">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="896" y="221" width="640" height="603" key="GridCell.Tab.1.left/0.0.1536.824@0.0.1536.824" timestamp="1606210030283" />
+    <state x="896" y="221" width="640" height="603" key="GridCell.Tab.1.right" timestamp="1606210030275">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="896" y="221" width="640" height="603" key="GridCell.Tab.1.right/0.0.1536.824@0.0.1536.824" timestamp="1606210030275" />
+    <state x="896" y="221" width="640" height="603" key="GridCell.Tab.2.bottom" timestamp="1606210030276">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="896" y="221" width="640" height="603" key="GridCell.Tab.2.bottom/0.0.1536.824@0.0.1536.824" timestamp="1606210030276" />
+    <state x="896" y="221" width="640" height="603" key="GridCell.Tab.2.center" timestamp="1606210030276">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="896" y="221" width="640" height="603" key="GridCell.Tab.2.center/0.0.1536.824@0.0.1536.824" timestamp="1606210030276" />
+    <state x="896" y="221" width="640" height="603" key="GridCell.Tab.2.left" timestamp="1606210030276">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="896" y="221" width="640" height="603" key="GridCell.Tab.2.left/0.0.1536.824@0.0.1536.824" timestamp="1606210030276" />
+    <state x="896" y="221" width="640" height="603" key="GridCell.Tab.2.right" timestamp="1606210030276">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="896" y="221" width="640" height="603" key="GridCell.Tab.2.right/0.0.1536.824@0.0.1536.824" timestamp="1606210030276" />
+    <state width="640" height="603" key="GridCell.Tab.3.bottom" timestamp="1606210030272">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state width="640" height="603" key="GridCell.Tab.3.bottom/0.0.1536.824@0.0.1536.824" timestamp="1606210030272" />
+    <state width="640" height="603" key="GridCell.Tab.3.center" timestamp="1606210030272">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state width="640" height="603" key="GridCell.Tab.3.center/0.0.1536.824@0.0.1536.824" timestamp="1606210030272" />
+    <state width="640" height="603" key="GridCell.Tab.3.left" timestamp="1606210030272">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state width="640" height="603" key="GridCell.Tab.3.left/0.0.1536.824@0.0.1536.824" timestamp="1606210030272" />
+    <state width="640" height="603" key="GridCell.Tab.3.right" timestamp="1606210030272">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state width="640" height="603" key="GridCell.Tab.3.right/0.0.1536.824@0.0.1536.824" timestamp="1606210030272" />
+    <state x="147" y="65" key="MergeDialog" timestamp="1606210901066">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="147" y="65" key="MergeDialog/0.0.1536.824@0.0.1536.824" timestamp="1606210901066" />
+    <state x="407" y="174" key="MultipleFileMergeDialog" timestamp="1606210901082">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="407" y="174" key="MultipleFileMergeDialog/0.0.1536.824@0.0.1536.824" timestamp="1606210901082" />
+    <state x="361" y="145" key="Vcs.Push.Dialog.v2" timestamp="1606210968015">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="361" y="145" key="Vcs.Push.Dialog.v2/0.0.1536.824@0.0.1536.824" timestamp="1606210968015" />
+    <state x="586" y="326" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1606205096398">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="586" y="326" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1536.824@0.0.1536.824" timestamp="1606205096398" />
+    <state x="896" y="221" width="654" height="668" key="dock-window-1" timestamp="1606209877460">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="896" y="221" width="654" height="668" key="dock-window-1/0.0.1536.824@0.0.1536.824" timestamp="1606209877460" />
+    <state x="896" y="221" width="654" height="668" key="dock-window-2" timestamp="1606209911595">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="896" y="221" width="654" height="668" key="dock-window-2/0.0.1536.824@0.0.1536.824" timestamp="1606209911595" />
     <state x="342" y="160" key="new project wizard" timestamp="1605866186605">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
