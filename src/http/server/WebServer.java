@@ -48,32 +48,46 @@ public class WebServer {
             remote.getInputStream()));
         PrintWriter out = new PrintWriter(remote.getOutputStream());
         Request req = Request.parse(remote.getInputStream());
-        if (req != null){
-          switch (req.method){
-            case "GET" :
-              System.out.println("GET requested");
-              handleGET(req,remote.getOutputStream());
-              break;
-            case "POST" :
-              System.out.println("POST requested");
-              handlePOST(req,out);
 
-              break;
-            case "HEAD" :
-              System.out.println("HEAD requested");
-              handleHEAD(req,out);
-              break;
-            case "DELETE" :
-              System.out.println("DELETE requested");
-              handleDELETE(req,out);
-              break;
-            case "PUT" :
-              System.out.println("PUT requested");
-              handlePUT(req,out);
-              break;
-            default :
-              handleUnrecognized(out);
-              break;
+        if (req != null){
+          if (!req.wellFormed){
+            System.out.println("Bad Request");
+            out.println("HTTP/1.1 400 Bad Request");
+            out.println("Content-Type: text/html");
+            out.println("Server: Bot");
+            // this blank line signals the end of the headers
+            out.println("");
+            out.println("<h1>Status code 400 : Bad Request</h1>");
+            out.println("");
+
+          } else {
+            switch (req.method) {
+              case "GET":
+                System.out.println("GET requested");
+                handleGET(req, remote.getOutputStream());
+                break;
+              case "POST":
+                System.out.println("POST requested");
+                handlePOST(req, out);
+
+                break;
+              case "HEAD":
+                System.out.println("HEAD requested");
+                handleHEAD(req, out);
+                break;
+              case "DELETE":
+                System.out.println("DELETE requested");
+                handleDELETE(req, out);
+                break;
+              case "PUT":
+                System.out.println("PUT requested");
+                handlePUT(req, out);
+                break;
+              default :
+                handleUnrecognized(out);
+                break;
+            }
+            
           }
         }
         out.flush();
@@ -168,6 +182,8 @@ public class WebServer {
       // this blank line signals the end of the headers
       writer.println("");
       writer.println("<h1>Status code 404 : Not Found</h1>");
+      writer.flush();
+      writer.close();
     } catch (IOException e) {
       e.printStackTrace();
     }
@@ -184,6 +200,7 @@ public class WebServer {
       // this blank line signals the end of the headers
       out.println("");
       out.println("<h1>Status code 404 : Not Found</h1>");
+      out.println("");
       return "";
     }else{
       page = req.uri;
@@ -249,6 +266,13 @@ public class WebServer {
 
     } catch (FileNotFoundException e) {
       e.printStackTrace();
+      out.println("HTTP/1.1 404 Not Found");
+      out.println("Content-Type: text/html");
+      out.println("Server: Bot");
+      // this blank line signals the end of the headers
+      out.println("");
+      out.println("<h1>Status code 404 : Not Found</h1>");
+      out.println("");
     }
     return "";
   }
@@ -270,12 +294,13 @@ public class WebServer {
       out.println("");
       System.out.println("deleted");
     }else{
-      out.println("HTTP/1.0 200 OK");
+      out.println("HTTP/1.1 404 Not Found");
       out.println("Content-Type: text/html");
       out.println("Server: Bot");
       // this blank line signals the end of the headers
       out.println("");
-      System.out.println("not deleted");
+      out.println("<h1>Status code 404 : Not Found</h1>");
+      out.println("");
     }
     return "";
   }
@@ -289,6 +314,7 @@ public class WebServer {
       // this blank line signals the end of the headers
       out.println("");
       out.println("<h1>Status code 404 : Not Found</h1>");
+      out.println("");
       return "";
     }else{
       page = req.uri;
@@ -320,8 +346,6 @@ public class WebServer {
     } catch (IOException e) {
       e.printStackTrace();
     }
-
-
     return "";
   }
 

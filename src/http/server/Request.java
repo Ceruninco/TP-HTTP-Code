@@ -13,21 +13,25 @@ public class Request {
     public String version;
     public Map<String,String> headers;
     public String body;
+    public boolean wellFormed;
 
-    public Request(String method, String uri, String version, Map<String,String> headers, String body){
+    public Request(String method, String uri, String version,
+                   Map<String,String> headers, String body, boolean wellFormed){
         this.method = method;
         this.uri = uri;
         this.version = version;
         this.headers = headers;
         this.body = body;
+        this.wellFormed = wellFormed;
     }
 
     public static Request parse(InputStream is) throws IOException{
         Scanner scanner = new Scanner(is);
         String requestLine = scanner.nextLine();
         String parts[] = requestLine.split(" ");
-
-        assert (parts.length == 3);
+        boolean wellFormed = true;
+        if(parts.length != 3)
+            wellFormed = false;
 
         String method = parts[0];
         String uri = parts[1];
@@ -40,7 +44,8 @@ public class Request {
                 break;
             }
             String headerParts[] = headerLine.split(": ");
-            assert (headerParts.length == 2);
+            if(headerParts.length != 2)
+                wellFormed = false;
 
             headers.put(headerParts[0], headerParts[1]);
         }
@@ -53,7 +58,7 @@ public class Request {
             body = scanner.next();
         }
         System.err.println("Request created");
-        return new Request(method, uri, version, headers, body);
+        return new Request(method, uri, version, headers, body, wellFormed);
 
     }
 }
