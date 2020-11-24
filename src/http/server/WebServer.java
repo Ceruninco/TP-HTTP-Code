@@ -60,49 +60,18 @@ public class WebServer {
               break;
             case "HEAD" :
               System.out.println("HEAD requested");
+              handleHEAD(req,out);
               break;
             case "DELETE" :
               System.out.println("DELETE requested");
+              handleDELETE(req,out);
               break;
             case "PUT" :
               System.out.println("PUT requested");
-              //handlePUT(req,out,in);
+              handlePUT(req,out);
               break;
           }
         }
-        // read the data sent. We basically ignore it,
-        // stop reading once a blank line is hit. This
-        // blank line signals the end of the client HTTP
-        // headers.
-        /*String str = ".";
-
-        str = in.readLine();
-        System.out.println("**** " + str);
-        if(str != null && !str.equals("")){
-            String[] req = str.split(" ");
-            switch (req[0]){
-              case "GET" :
-                System.out.println("GET requested");
-                handleGET(req,out,in);
-                break;
-              case "POST" :
-                System.out.println("POST requested");
-                handlePOST(req,out,in);
-
-                break;
-              case "HEAD" :
-                System.out.println("HEAD requested");
-                break;
-              case "DELETE" :
-                System.out.println("DELETE requested");
-                break;
-              case "PUT" :
-                System.out.println("PUT requested");
-                handlePUT(req,out,in);
-                break;
-            }
-        }*/
-
         out.flush();
         remote.close();
 
@@ -193,32 +162,20 @@ public class WebServer {
     return "";
   }
 
+  public String handleHEAD(Request req, PrintWriter out){
 
-  public String handleGET(String[] req, PrintWriter out,BufferedReader in){
-    //Read the whole request
-    String current = "";
-    while (true){
-      try {
-        current=in.readLine();
-        System.out.println("current " + current);
-        if (current.equals("") || current==null) {
-          break;
-        }
-      } catch (IOException e) {
-        e.printStackTrace();
-      }
-    }
     String page = "";
-    if(req[1].equals("/")){
+    if(req.uri.equals("/")){
+
       page = "/page1.html";
     }else{
-      page = req[1];
+      page = req.uri;
     }
     File html = new File( System.getProperty("user.dir") + "/web/html"+page);
     Scanner myReader = null;
     try {
       myReader = new Scanner(html);
-      out.println("HTTP/1.1 200 OK");
+      out.println("HTTP/1.0 200 OK");
       out.println("Content-Type: text/html");
       out.println("Server: Bot");
       // this blank line signals the end of the headers
@@ -227,25 +184,49 @@ public class WebServer {
       while (myReader.hasNextLine()) {
         String data = myReader.nextLine();
         out.println(data);
+        if(data.equals("</head>")){
+          break;
+        }
       }
-
+      out.println("");
       myReader.close();
 
     } catch (FileNotFoundException e) {
       e.printStackTrace();
-      out.println("HTTP/1.1 404 Not Found");
+    }
+    return "";
+  }
+  public String handleDELETE(Request req, PrintWriter out){
+
+    String page = "";
+    if(req.uri.equals("/")){
+
+      page = "/page1.html";
+    }else{
+      page = req.uri;
+    }
+    File file = new File( System.getProperty("user.dir") + "/web/html"+page);
+    if(file.delete()){
+      out.println("HTTP/1.0 200 OK");
       out.println("Content-Type: text/html");
       out.println("Server: Bot");
       // this blank line signals the end of the headers
       out.println("");
-      out.println("<h1>Status code 404 : Not Found</h1>");
+      System.out.println("deleted");
+    }else{
+      out.println("HTTP/1.0 200 OK");
+      out.println("Content-Type: text/html");
+      out.println("Server: Bot");
+      // this blank line signals the end of the headers
+      out.println("");
+      System.out.println("not deleted");
     }
     return "";
   }
-  public String handlePOST(String[] req, PrintWriter out,BufferedReader in){
 
+  public String handlePUT(Request req, PrintWriter out){
     String page = "";
-    if(req[1].equals("/")){
+    if(req.uri.equals("/")){
       out.println("HTTP/1.1 404 Not Found");
       out.println("Content-Type: text/html");
       out.println("Server: Bot");
@@ -254,27 +235,7 @@ public class WebServer {
       out.println("<h1>Status code 404 : Not Found</h1>");
       return "";
     }else{
-      page = req[1];
-    }
-    Vector<String> content = new Vector<>();
-    String current = "";
-    while (true){
-      try {
-        current=in.readLine();
-        System.out.println("current " + current);
-        if (current.equals("") || current==null) {break;}
-      } catch (IOException e) {
-        e.printStackTrace();
-      }
-    }
-    System.out.println("Start of body");
-    try {
-      current=in.readLine();
-      current.replace('+',' ');
-      content.add(current);
-      System.out.println("body: " + current);
-    } catch (IOException e) {
-      e.printStackTrace();
+      page = req.uri;
     }
 
     try {
@@ -284,23 +245,21 @@ public class WebServer {
       } else {
         System.out.println("File already exists.");
       }
-      /*while (!(current=in.readLine()).equals("")){
-        content.add(current);
-        System.out.println(current);
-      }
-      System.out.println("number of lines of header : " +content.size());*/
-      FileWriter historyFileWriter = new FileWriter(reader, true);
-      System.out.println("number of lines of file " +content.size());
-      for (int i=0; i<content.size(); ++i){
+
+      FileWriter historyFileWriter = new FileWriter(reader, false);
+      System.out.println("number of chars of body " + req.body.length());
+      /*for (int i=0; i<content.size(); ++i){
         historyFileWriter.write(content.get(i) + "\n");
-      }
+      }*/
+      System.err.println(req.body);
+      historyFileWriter.write(req.body + "\n");
 
       historyFileWriter.close();
       out.println("HTTP/1.0 200 OK");
       out.println("Content-Type: text/html");
       out.println("Server: Bot");
       // this blank line signals the end of the headers
-      out.println("");
+      out.println("\r\n");
 
     } catch (IOException e) {
       e.printStackTrace();
@@ -310,50 +269,10 @@ public class WebServer {
     return "";
   }
 
-  public String handlePUT(String[] req, PrintWriter out,BufferedReader in){
-
-    String page = "";
 
 
-    if(req[1].equals("/")){
-      return "";
-    }else{
-      page = req[1];
-    }
-    Vector<String> content = new Vector<>();
-    String current = "";
-
-    try {
-      File reader = new File( System.getProperty("user.dir") + "/web/html"+page);
-      if (reader.createNewFile()) {
-        System.out.println("File created: " + reader.getName());
-      } else {
-        System.out.println("File already exists.");
-      }
-      while (!(current=in.readLine()).equals("")){
-        content.add(current);
-        System.out.println(current);
-      }
-      System.out.println("number of lines of header : " +content.size());
-      FileWriter historyFileWriter = new FileWriter(reader, false);
-      while (!(current=in.readLine()).equals("")&&current!=null){
-        historyFileWriter.write(current+"\n");
-      }
-      historyFileWriter.close();
-
-    } catch (IOException e) {
-      e.printStackTrace();
-    }
 
 
-    out.println("HTTP/1.0 200 OK");
-    out.println("Content-Type: text/html");
-    out.println("Server: Bot");
-    // this blank line signals the end of the headers
-
-    out.println("");
-    return "";
-  }
   /**
    * Start the application.
    * 
