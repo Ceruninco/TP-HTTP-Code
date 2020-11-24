@@ -129,8 +129,6 @@ public class WebServer {
         }
       }
 
-      System.out.println(fileType);
-      String category = fileType.split("/")[0];
       Scanner myReader = null;
 
       if (fileType.equals(null)) {
@@ -141,8 +139,6 @@ public class WebServer {
       }else{
         writer.println("HTTP/1.1 200 OK");
         writer.println("Content-Type: "+fileType);
-        //    writer.println("Content-Length: "+file.length());
-        //   System.out.println(file.length());
         System.out.println("type : "+fileType);
         writer.println("Server: Bot");
         // this blank line signals the end of the headers
@@ -151,29 +147,22 @@ public class WebServer {
 
 
       if(fileType.equals("text/html") || fileType.equals("text/javascript")){
-        System.out.println("sending html");
         myReader = new Scanner(file);
         while (myReader.hasNextLine()) {
           String data = myReader.nextLine();
-          System.out.println(data);
           writer.println(data);
         }
         writer.println("");
       }else if(!fileType.equals(null)){
         writer.flush();
-        System.out.println("sending image to server");
         Files.copy(file.toPath(),out);
-   //     out.flush();
-        System.out.println("image sent");
-    //    out.close();
-      }
 
+      }
       writer.println("");
       writer.flush();
       writer.close();
       myReader.close();
 
-    System.out.println("end of transmission");
     } catch (FileNotFoundException e) {
       e.printStackTrace();
       writer.println("HTTP/1.1 404 Not Found");
@@ -330,9 +319,6 @@ public class WebServer {
 
       FileWriter historyFileWriter = new FileWriter(reader, false);
       System.out.println("number of chars of body " + req.body.length());
-      /*for (int i=0; i<content.size(); ++i){
-        historyFileWriter.write(content.get(i) + "\n");
-      }*/
       System.err.println(req.body);
       historyFileWriter.write(req.body + "\r\n");
 
