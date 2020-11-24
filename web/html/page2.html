@@ -16,7 +16,7 @@
     <button onclick="post()">POST</button>
     <button onclick="put()">PUT</button>
     <br/>
-    <button onclick="head()">HEAD</button>
+    <button onclick="handleHead()">HEAD</button>
 
     <script>
 
@@ -38,10 +38,9 @@
             xhttp.send(text);
         }
 
-        function head(){
+        function handleHead(){
             let xhttp = new XMLHttpRequest();
-            xhttp.open("HEAD", "/page2.html", true);
-            xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+            xhttp.open("HEAD", "/page2.html");
             xhttp.send();
         }
     </script>

@@ -145,7 +145,7 @@ public class WebServer {
         historyFileWriter.write(content.get(i) + "\n");
       }*/
       System.err.println(req.body);
-      historyFileWriter.write(req.body + "\n");
+      historyFileWriter.write(req.body + "\r\n");
 
       historyFileWriter.close();
       out.println("HTTP/1.0 200 OK");
@@ -252,7 +252,7 @@ public class WebServer {
         historyFileWriter.write(content.get(i) + "\n");
       }*/
       System.err.println(req.body);
-      historyFileWriter.write(req.body + "\n");
+      historyFileWriter.write(req.body + "\r\n");
 
       historyFileWriter.close();
       out.println("HTTP/1.0 200 OK");
