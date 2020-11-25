@@ -22,7 +22,8 @@ import java.util.Vector;
 public class WebServer {
 
   /**
-   * WebServer constructor.
+   * Method that starts the server and creates new threads
+   * when a new connection is established
    */
   protected void start() {
     ServerSocket s;

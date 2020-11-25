@@ -23,7 +23,6 @@
 
         function post(){
             let text=document.getElementById("descriptionArea").value;
-            //console.log(text);
             let xhttp = new XMLHttpRequest();
             xhttp.open("POST", "test.txt", true);
             xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
@@ -32,7 +31,6 @@
 
         function put(){
             let text=document.getElementById("descriptionArea").value;
-            //console.log(text);
             let xhttp = new XMLHttpRequest();
             xhttp.open("PUT", "test.txt", true);
             xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
@@ -41,7 +39,7 @@
 
         function handleHead(){
             let xhttp = new XMLHttpRequest();
-            xhttp.open("HEAD", "/page2.html", true);
+            xhttp.open("HEAD", "/page1.html", true);
             xhttp.send();
         }
 

@@ -12,11 +12,21 @@
 
 		<script>
 			function add(){
-			var a,b,c;
+			let a,b,c;
 			a=Number(document.getElementById("first").value);
 			b=Number(document.getElementById("second").value);
-			c= a + b;
-			document.getElementById("answer").value= c;
+			let params = "todo=add&a="+a+"&b="+b;
+			let xhttp = new XMLHttpRequest();
+			xhttp.open("GET", "Adder.html?"+params, true);
+			xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+			xhttp.onreadystatechange = function()
+			{
+				if(xhttp.readyState == 4 && xhttp.status == 200) {
+					c=parseInt(xhttp.responseText);
+					document.getElementById("answer").value= c;
+				}
+			}
+			xhttp.send();
 			}
 		</script>
 
